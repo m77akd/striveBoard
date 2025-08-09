@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service'
 import { prayerTimeAPI, prayerTimes } from '../prayer-times';
 import { RouterOutlet } from '@angular/router';
@@ -8,36 +8,28 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule} from '@angular/forms';
 import { CurrentTimeComponent } from '../current-time/current-time.component'
 import { NgFor } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 @Component({
   selector: 'app-prayer-times',
   standalone: true,
-  imports: [RouterOutlet, MatSlideToggleModule, CommonModule, MatCardModule, FormsModule, CurrentTimeComponent, NgFor],
+  imports: [RouterOutlet, MatSlideToggleModule, CommonModule, MatCardModule, FormsModule, CurrentTimeComponent, NgFor, MatExpansionModule],
   templateUrl: './prayer-times.component.html',
-  styleUrl: './prayer-times.component.scss'
+  styleUrl: './prayer-times.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  
 })
 export class PrayerTimesComponent {
+  readonly panelOpenState = signal(false);
+
   public prayerTimeAPI: prayerTimeAPI
-  public prayerTimes: prayerTimes
 
   checked = false;
   disabled = false;
 
-  listOfPrayerTimes = [
-    { label: 'Fajr', key: 'Fajr' },
-    { label: 'Sunrise', key: 'Sunrise' },
-    { label: 'Dhuhr', key: 'Dhuhr' },
-    { label: 'Asr', key: 'Asr' },
-    { label: 'Sunset', key: 'Sunset' },
-    { label: 'Maghrib', key: 'Maghrib' },
-    { label: 'Isha', key: 'Isha' },
-    { label: 'Imsak', key: 'Imsak' },
-    { label: 'Midnight', key: 'Midnight' },
-  ];
-
   constructor(private fetchApiDataService: FetchApiDataService) {
     this.prayerTimeAPI = {}
-    this.prayerTimes = this.fetchApiDataService.callToTestAPI();
   }
   ngOnInit() {
     this.fetchApiDataService.callToAPI().subscribe(response => {

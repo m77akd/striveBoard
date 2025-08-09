@@ -1,0 +1,19 @@
+.card-times {
+    margin: 1rem;
+    box-shadow: 0;
+    border-radius: 0 3em 0 3em;
+    padding: 0em 0 0 1em;
+    line-height: 0.7;
+}
+
+.PT-Container {
+    flex-wrap: wrap;
+    display: flex;
+  height: 300px; /* Or whatever */
+}
+.PT-Item {
+    order: 2;
+    width: 100px;  /* Or whatever */
+  height: 100px; /* Or whatever */
+  margin: auto;  /* Magic! */
+}

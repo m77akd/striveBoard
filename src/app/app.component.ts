@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FetchApiDataService } from './fetch-api-data.service';
-import { PrayerTimesComponent } from './prayer-times/prayer-times.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavMetricsService, provideNavMetrics } from 'nav-metrics';
 
 
 @Component({
@@ -11,7 +11,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   standalone: true,
   imports: [
     RouterOutlet, 
-    PrayerTimesComponent, 
     MatSlideToggleModule, 
     MatToolbarModule, 
   ], // PrayerTimesComponent
@@ -23,7 +22,8 @@ export class AppComponent {
 
   isSubscribedToEmailsMessage = "gurke";
   title = 'striveBoard';
-  constructor(private fetchAPIData: FetchApiDataService) {
+  constructor(private fetchAPIData: FetchApiDataService, private navMetrics: NavMetricsService) {
+    this.navMetrics.recordOnce();
     console.log('about to start ')
     this.fetchAPIData.callToAPI();
   }

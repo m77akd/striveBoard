@@ -8,6 +8,7 @@ import { FormsModule} from '@angular/forms';
 import { CurrentTimeComponent } from '../current-time/current-time.component'
 import { NgFor } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NavMetricsService, provideNavMetrics } from 'nav-metrics';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './prayer-times.component.html',
   styleUrl: './prayer-times.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  
+  providers: [ provideNavMetrics({ onRecord: (m) => console.log(m) }) ]
 })
 export class PrayerTimesComponent {
   readonly panelOpenState = signal(false);

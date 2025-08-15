@@ -4,7 +4,6 @@ import { FetchApiDataService } from './fetch-api-data.service';
 import { PrayerTimesComponent } from './prayer-times/prayer-times.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @Component({
@@ -15,15 +14,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
     PrayerTimesComponent, 
     MatSlideToggleModule, 
     MatToolbarModule, 
-    MatExpansionModule
   ], // PrayerTimesComponent
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AppComponent {
-  readonly panelOpenState = signal(false);
 
   isSubscribedToEmailsMessage = "gurke";
   title = 'striveBoard';

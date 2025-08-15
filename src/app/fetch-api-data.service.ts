@@ -20,12 +20,13 @@ export class FetchApiDataService {
   private prayerTimesURL = "https://islamicapi.com/api/v1/prayer-time/?lat=" + this.latitude + "&lon=" + this.longitude + "&method=" + this.method + "&school=" + this.school + "&api_key="
   // public prayerTimeAPI: prayerTimeAPI    
 
-  constructor() {    
+  constructor(private http: HttpClient) {    
   }
 
   callToAPI(): Observable<prayerTimeAPI> {
     console.log("callToAPI has been called")
-    return this.httpClient.request('GET', this.prayerTimesURL + this.apiKey, {responseType:'json'});
+    return this.http.get(this.prayerTimesURL + this.apiKey, {responseType:'json'})
+    //return this.httpClient.request('GET', this.prayerTimesURL + this.apiKey, {responseType:'json'});
   }
 
 }

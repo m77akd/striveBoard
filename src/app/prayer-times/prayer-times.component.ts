@@ -8,7 +8,6 @@ import { FormsModule} from '@angular/forms';
 import { CurrentTimeComponent } from '../current-time/current-time.component'
 import { NgFor } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NavMetricsService, provideNavMetrics } from 'nav-metrics';
 
 
 @Component({

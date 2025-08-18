@@ -6,4 +6,4 @@ import { MatExpansionModule } from '@angular/material/expansion';
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
-exports: [MatExpansionModule]
+export const AppModules = [MatExpansionModule];

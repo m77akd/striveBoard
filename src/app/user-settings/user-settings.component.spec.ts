@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrentTimeComponent } from './current-time.component';
+import { UserSettingsComponent } from './user-settings.component';
 
-describe('CurrentTimeComponent', () => {
-  let component: CurrentTimeComponent;
-  let fixture: ComponentFixture<CurrentTimeComponent>;
+describe('UserSettingsComponent', () => {
+  let component: UserSettingsComponent;
+  let fixture: ComponentFixture<UserSettingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CurrentTimeComponent]
+      imports: [UserSettingsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CurrentTimeComponent);
+    fixture = TestBed.createComponent(UserSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

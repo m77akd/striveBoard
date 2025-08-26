@@ -1,7 +1,10 @@
-<mat-toolbar>
-  <span>Near Spot Jummu'ah</span>
-</mat-toolbar>
-
-
-
-<router-outlet /> 
+<div style="position: fixed; top: 16px; left: 16px; z-index: 2000; display: flex; align-items: center; background: rgba(255,255,255,0.18); border-radius: 24px; box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18); padding: 8px 20px 8px 8px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1.5px solid rgba(255,255,255,0.25);">
+  <button class="menu-btn" (click)="openSettingsDialog()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="margin-left: 8px; font-weight: 500; font-size: 1.1rem;">Near Spot Jummu'ah</span>
+</div>
+<div style="margin-left: 0; margin-top: 114px; margin-bottom: 70px;">
+  <router-outlet></router-outlet>
+  <app-bottom-tab-bar></app-bottom-tab-bar>
+</div>

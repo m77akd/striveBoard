@@ -1,0 +1,19 @@
+<mat-sidenav-container style="height: 100vh;">
+  <mat-sidenav #drawer mode="side" [opened]="true">
+    <button mat-icon-button (click)="toggleSidenav()" style="float:right;">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button mat-button (click)="openSettingsDialog()">Einstellungen</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="position: fixed; top: 16px; left: 16px; z-index: 2000; display: flex; align-items: center; background: rgba(255,255,255,0.95); border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 4px 12px 4px 4px;">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span style="margin-left: 8px; font-weight: 500; font-size: 1.1rem;">Near Spot Jummu'ah</span>
+    </div>
+    <div style="margin-left: 0;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,17 @@
+<nav class="bottom-tab-bar">
+  <button mat-icon-button [class.active]="selectedIndex === 0" (click)="selectTab(0)">
+    <mat-icon>home</mat-icon>
+    <span *ngIf="selectedIndex !== 0">Home</span>
+    <span class="tab-indicator" *ngIf="selectedIndex === 0"></span>
+  </button>
+  <button mat-icon-button [class.active]="selectedIndex === 1" (click)="selectTab(1)">
+    <mat-icon>schedule</mat-icon>
+    <span *ngIf="selectedIndex !== 1">Times</span>
+    <span class="tab-indicator" *ngIf="selectedIndex === 1"></span>
+  </button>
+  <button mat-icon-button [class.active]="selectedIndex === 2" (click)="selectTab(2)">
+    <mat-icon>settings</mat-icon>
+    <span *ngIf="selectedIndex !== 2">Settings</span>
+    <span class="tab-indicator" *ngIf="selectedIndex === 2"></span>
+  </button>
+</nav>

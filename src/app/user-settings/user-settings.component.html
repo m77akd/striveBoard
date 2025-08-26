@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Source of Prayertime Data </mat-label>
+  <mat-select [(ngModel)]="selectedCalculationMethod" (selectionChange)="onCalculationMethodChange($event.value)">
+    <mat-option *ngFor="let calculationMethod of fetchAPIData.calculationMethods; trackBy: trackByValue" [value]="calculationMethod.value">
+      {{calculationMethod.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

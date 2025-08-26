@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { prayerTimeAPI, prayerTimes } from './prayer-times';
-import { log } from 'console';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { prayerTimeAPI } from './prayer-times';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +14,51 @@ export class FetchApiDataService {
   private apiKey = "Lts9oZywOGhBm5VTrFop9GPt3n6zz43GE69Plc4tzf4lJvfM";
   private latitude = "47,02372";
   private longitude = "7,45322";
-  private method = "13";
+  private method = "1"; // Default calculation method
+  
+  public calculationMethods = [
+    { value: '1', viewValue: 'University of Islamic Sciences, Karachi' },
+    { value: '2', viewValue: 'Islamic Society of North America' },
+    { value: '3', viewValue: 'Muslim World League' },
+    { value: '4', viewValue: 'Umm Al-Qura University, Makkah' },
+    { value: '5', viewValue: 'Egyptian General Authority of Survey' },
+    { value: '7', viewValue: 'Institute of Geophysics, Tehran' },
+    { value: '8', viewValue: 'Gulf Region' },
+    { value: '9', viewValue: 'Kuwait' },
+    { value: '10', viewValue: 'Qatar' },
+    { value: '11', viewValue: 'MUIS, Singapore' },
+    { value: '12', viewValue: 'UOIF, France' },
+    { value: '13', viewValue: 'Diyanet, Turkey' },
+    { value: '14', viewValue: 'Russia' },
+    { value: '15', viewValue: 'Moonsighting Committee Worldwide' },
+    { value: '16', viewValue: 'Dubai (experimental)' },
+    { value: '17', viewValue: 'JAKIM, Malaysia' },
+    { value: '18', viewValue: 'Tunisia' },
+    { value: '19', viewValue: 'Algeria' },
+    { value: '20', viewValue: 'KEMENAG, Indonesia' },
+    { value: '21', viewValue: 'Morocco' },
+    { value: '22', viewValue: 'Lisbon, Portugal' },
+    { value: '23', viewValue: 'Jordan' },
+    { value: '0', viewValue: 'Jafari / Shia Ithna-Ashari' }
+  ];  
   private school = "1";
-  private prayerTimesURL = "https://islamicapi.com/api/v1/prayer-time/?lat=" + this.latitude + "&lon=" + this.longitude + "&method=" + this.method + "&school=" + this.school + "&api_key="
+  private prayerTimesURL = "";
   // public prayerTimeAPI: prayerTimeAPI    
 
-  constructor(private http: HttpClient) {    
+  constructor(private http: HttpClient) { 
+    this.updatePrayerTimesURL();   
+  }
+  public calculationMethodChanged$ = new BehaviorSubject<string>(this.method);
+
+
+  setCalculationMethod(method: string) {
+    this.method = method;
+    this.updatePrayerTimesURL();
+    this.calculationMethodChanged$.next(method);
+  }
+
+  private updatePrayerTimesURL() {
+    this.prayerTimesURL = "https://islamicapi.com/api/v1/prayer-time/?lat=" + this.latitude + "&lon=" + this.longitude + "&method=" + this.method + "&school=" + this.school + "&api_key=";
   }
 
   callToAPI(): Observable<prayerTimeAPI> {

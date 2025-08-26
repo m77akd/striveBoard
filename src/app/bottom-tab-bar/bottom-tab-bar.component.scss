@@ -1,0 +1,83 @@
+
+.bottom-tab-bar {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  padding: 18px 0 18px 0;
+  min-height: 76px;
+  border-radius: 24px 24px 24px 24px;
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  box-sizing: border-box; /* Ensures padding is included in the height */
+}
+
+.bottom-tab-bar button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  min-width: 64px;
+  min-height: 64px;
+  transition: color 0.2s;
+}
+
+.bottom-tab-bar button.active,
+.bottom-tab-bar button:focus {
+  color: #111;
+  font-weight: bold;
+  position: relative;
+}
+
+.bottom-tab-bar .tab-indicator {
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 18px solid #7ecbff;
+  filter: drop-shadow(0 0 8px #7ecbff) drop-shadow(0 0 16px #1976d2);
+  border-radius: 6px;
+  margin-top: 2px;
+  animation: space-glow 3.7s infinite alternate;
+}
+
+@keyframes space-glow {
+  0% {
+    filter: drop-shadow(0 0 8px #7ecbff) drop-shadow(0 0 16px #1976d2);
+    border-top-color: #7ecbff;
+  }
+  100% {
+    filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 32px #1976d2);
+    border-top-color: #17d94e;
+  }
+}
+
+.bottom-tab-bar mat-icon {
+  font-size: 24px;
+  margin-bottom: 2px;
+  line-height: 1;
+  height: 24px;
+  width: 24px;
+  display: block;
+  color: #111 !important;
+  font-weight: bold;
+  text-shadow: none !important;
+}
+
+.bottom-tab-bar span {
+  font-size: 0.8rem;
+}

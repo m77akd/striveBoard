@@ -1,0 +1,33 @@
+<div class="calendar-timeline">
+  <div class="day-flow">
+    <div class="hour-column">
+      <div *ngFor="let hour of hoursLeft" class="hour-block">
+        <div class="hour-label">{{ hour }}:00</div>
+        <div class="prayer-task" *ngIf="prayerTimes[hour]">
+          <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+        </div>
+        <div class="task-slot" *ngIf="!prayerTimes[hour]">
+          <!-- Platz für Aufgaben -->
+        </div>
+      </div>
+    </div>
+    <div class="hour-column">
+      <div *ngFor="let hour of hoursRight" class="hour-block">
+        <div class="hour-label">{{ hour }}:00</div>
+        <div class="prayer-task" *ngIf="prayerTimes[hour]">
+          <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+        </div>
+        <div class="task-slot" *ngIf="!prayerTimes[hour]">
+          <!-- Platz für Aufgaben -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <form class="task-form" (ngSubmit)="addTask()">
+    <input class="task-input" type="text" [(ngModel)]="taskInput" name="taskInput" placeholder="Task hinzufügen..." autocomplete="off" />
+    <button class="task-add-btn" type="submit">Add</button>
+  </form>
+  <ul class="task-list">
+    <li *ngFor="let task of tasks">{{ task }}</li>
+  </ul>
+</div>

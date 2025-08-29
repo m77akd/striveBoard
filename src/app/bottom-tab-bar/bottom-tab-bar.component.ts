@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CalendarTimelineComponent } from '../calendar-timeline/calendar-timeline.component';
+
 
 @Component({
   selector: 'app-bottom-tab-bar',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, CommonModule],
+  imports: [MatIconModule, MatButtonModule, CommonModule, CalendarTimelineComponent],
   templateUrl: './bottom-tab-bar.component.html',
   styleUrl: './bottom-tab-bar.component.scss',
 })
-export class BottomTabBarComponent {
-  selectedIndex = 0;
-  selectTab(index: number) {
+export class BottomTabBarComponent implements OnInit {
+  @Input() initialIndex: number = 1;
+  selectedIndex = 1;
+  @Output() tabChange = new EventEmitter<number>();
+
+  ngOnInit(): void {
+    this.selectedIndex = this.initialIndex;
+    this.tabChange.emit(this.selectedIndex);
+  }
+
+  selectTab(index: number): void {
     this.selectedIndex = index;
+    this.tabChange.emit(index);
   }
 }

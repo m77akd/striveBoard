@@ -1,3 +1,32 @@
+// Hijri-Daten und Gebetszeiten nebeneinander, vertikal ausgerichtet
+.prayer-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 18px;
+}
+.hijri-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 160px;
+}
+.prayer-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+// Vertikale Zentrierung für Hijri-Daten
+.hijri-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
 .card-times {
     margin: 1rem 0.5rem 1rem 1.9rem;
     box-shadow: 0;

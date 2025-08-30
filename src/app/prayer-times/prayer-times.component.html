@@ -1,229 +1,49 @@
 
-<h1>Prayer Times</h1>
-<p *ngIf="lastUpdated">Letztes Update: {{ lastUpdated | date:'short' }}</p>
-
-<p> {{ prayerTimeAPI["code"] }} {{ prayerTimeAPI["status"] }} </p>
-<p> {{ prayerTimeAPI.data?.date?.timestamp! }} </p>
 
 
-<div class="PT-Container">
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Imsak</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Imsak}} </p>
-    </mat-card-content>
-  </mat-card>
-  
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Fajr</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Fajr}} </p>
-    </mat-card-content>
-  </mat-card>
 
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Sunrise</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunrise}} </p>
-    </mat-card-content>
-  </mat-card>
 
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Dhuhr</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Dhuhr}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Asr</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Asr}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Sunset</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunset}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Maghrib</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Maghrib}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Isha</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Isha}} </p>
-    </mat-card-content>
-  </mat-card>
-<!-- 
-      <p>{{prayerTimeAPI.data.times.Isha}} </p>
-      <p>{{prayerTimeAPI.data.times.Imsak}} </p>
-      <p>{{prayerTimeAPI.data.times.Midnight}} </p>
-      <p>{{prayerTimeAPI.data.times.Firstthird}} </p>
-      <p>{{prayerTimeAPI.data.times.Lastthird}} </p>
-    <p>{{prayerTimeAPI.data.date.timestamp}} </p>
-    <p>{{prayerTimeAPI.data.date.hijri.day}} </p>
-    <p>{{prayerTimeAPI.data.date.hijri.weekday.ar}} </p>
-    <p>{{prayerTimeAPI.data.date.hijri.month.ar}} </p>
-    <p>{{prayerTimeAPI.data.date.hijri.year}} </p>
-    <p>{{prayerTimeAPI.data.prohibited_times.sunset.start}} </p>
-    <p>{{prayerTimeAPI.data.prohibited_times.sunset.end}} </p> -->
-  
-    
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Midnight</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Midnight}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Firstthird</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Firstthird}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Lastthird</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Lastthird}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card 
-    class="card-times"
-    >
-    <mat-card-header>
-      <h3>Date Timestamp</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-        <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.timestamp}} </p>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Hijri Date Cards -->
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Hijri Day</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.day}}</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Hijri Weekday (ar)</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.weekday.ar}}</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Hijri Month (ar)</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.month.ar}}</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Hijri Year</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.year}}</p>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Prohibited Times Cards -->
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Prohibited Sunset Start</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.start}}</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="card-times">
-    <mat-card-header>
-      <h3>Prohibited Sunset End</h3>
-    </mat-card-header>
-    <mat-card-content class="PT-Item">
-      <p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.end}}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
-
-<!-- <mat-accordion>
-  <mat-expansion-panel hideToggle>
+<mat-accordion>
+  <!-- Panel 1: 5 tägliche Gebete -->
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> This is the expansion title </mat-panel-title>
-      <mat-panel-description> This is a summary of the content </mat-panel-description>
+      <mat-panel-title>5 tägliche Gebete</mat-panel-title>
     </mat-expansion-panel-header>
+    <div class="prayer-row">
+      <div class="hijri-cards">
+        <mat-card class="card-times"><mat-card-header><h3>Hijri Day</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.day}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Hijri Weekday (ar)</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.weekday.ar}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Hijri Month (ar)</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.month.ar}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Hijri Year</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.year}}</p></mat-card-content></mat-card>
+      </div>
+      <div class="prayer-cards">
+        <mat-card class="card-times"><mat-card-header><h3>Fajr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Fajr}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Dhuhr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Dhuhr}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Asr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Asr}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Maghrib</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Maghrib}}</p></mat-card-content></mat-card>
+        <mat-card class="card-times"><mat-card-header><h3>Isha</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Isha}}</p></mat-card-content></mat-card>
+      </div>
+    </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+
+  <!-- Panel 2: Nachtgebete und spezielle Zeiten -->
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title> Self aware panel </mat-panel-title>
-      <mat-panel-description>
-        Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-      </mat-panel-description>
+      <mat-panel-title>Nachtgebete & spezielle Zeiten</mat-panel-title>
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <div class="PT-Container">
+      <mat-card class="card-times"><mat-card-header><h3>Imsak</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Imsak}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Sunrise</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunrise}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Sunset</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunset}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Midnight</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Midnight}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Firstthird</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Firstthird}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Lastthird</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Lastthird}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Date Timestamp</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.timestamp}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Prohibited Sunset Start</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.start}}</p></mat-card-content></mat-card>
+      <mat-card class="card-times"><mat-card-header><h3>Prohibited Sunset End</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.end}}</p></mat-card-content></mat-card>
+    </div>
   </mat-expansion-panel>
-</mat-accordion> -->
+</mat-accordion>
 
 <app-current-time class="line-break"></app-current-time>
 

@@ -19,10 +19,19 @@ interface Food {
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss'
 })
+
 export class UserSettingsComponent {
-  selectedCalculationMethod = localStorage.getItem('calculationMethod') || '1';
-  defaultTaskDuration = localStorage.getItem('defaultTaskDuration') || '60';
-  userTaskColor = localStorage.getItem('userTaskColor') || '#2196f3';
+  selectedCalculationMethod = '1';
+  defaultTaskDuration = '60';
+  userTaskColor = '#2196f3';
+
+  ngOnInit() {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.selectedCalculationMethod = localStorage.getItem('calculationMethod') || '1';
+      this.defaultTaskDuration = localStorage.getItem('defaultTaskDuration') || '60';
+      this.userTaskColor = localStorage.getItem('userTaskColor') || '#2196f3';
+    }
+  }
 
   trackByValue(index: number, item: { value: string }) {
     return item.value;
@@ -32,14 +41,20 @@ export class UserSettingsComponent {
 
   onCalculationMethodChange(value: string) {
     this.fetchAPIData.setCalculationMethod(value);
-    localStorage.setItem('calculationMethod', value);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('calculationMethod', value);
+    }
   }
 
   onDefaultTaskDurationChange(value: string) {
-    localStorage.setItem('defaultTaskDuration', value);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('defaultTaskDuration', value);
+    }
   }
 
   onUserTaskColorChange(value: string) {
-    localStorage.setItem('userTaskColor', value);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('userTaskColor', value);
+    }
   }
 }

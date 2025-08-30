@@ -1,3 +1,16 @@
+.settings-status-box {
+  background: rgba(255,255,255,0.18);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #222;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
 // Zentriere das Formular vertikal und horizontal, Card mit Glassmorphism
 .settings-wrapper {
   min-height: 70vh;

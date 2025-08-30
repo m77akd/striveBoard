@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { prayerTimeAPI } from './prayer-times';
@@ -8,6 +7,11 @@ import { prayerTimeAPI } from './prayer-times';
   providedIn: 'root'
 })
 export class FetchApiDataService {
+  // Status/Netzwerkdaten für Info-Box
+  public lastUpdated: Date | null = null;
+  public statusCode: string = '';
+  public statusText: string = '';
+  public timestamp: string = '';
   private httpClient = inject(HttpClient);
   // This service can now make HTTP requests via `this.http`.
   
@@ -63,8 +67,23 @@ export class FetchApiDataService {
 
   callToAPI(): Observable<prayerTimeAPI> {
     console.log("callToAPI has been called")
-    return this.http.get(this.prayerTimesURL + this.apiKey, {responseType:'json'})
-    //return this.httpClient.request('GET', this.prayerTimesURL + this.apiKey, {responseType:'json'});
+    return new Observable<prayerTimeAPI>(observer => {
+      this.http.get<prayerTimeAPI>(this.prayerTimesURL + this.apiKey, {responseType:'json'}).subscribe({
+        next: (data) => {
+          this.lastUpdated = new Date();
+          this.statusCode = data?.code || '';
+          this.statusText = data?.status || '';
+          this.timestamp = data?.data?.date?.timestamp ? String(data.data.date.timestamp) : '';
+          observer.next(data);
+          observer.complete();
+        },
+        error: (err) => {
+          this.statusCode = err.status ? String(err.status) : 'ERR';
+          this.statusText = err.statusText || 'Fehler';
+          observer.error(err);
+        }
+      });
+    });
   }
 
 }

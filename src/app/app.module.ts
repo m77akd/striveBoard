@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrayerTimesComponent } from './prayer-times/prayer-times.component';
+// PrayerTimesComponent entfernt
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // import { MatMenu } from '@angular/material/menu'
@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
   declarations: [],
   imports: [
     CommonModule,
-    PrayerTimesComponent,
+  // PrayerTimesComponent entfernt
     BrowserAnimationsModule
     // MatMenu
   ]

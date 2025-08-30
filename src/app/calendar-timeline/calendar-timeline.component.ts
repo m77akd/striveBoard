@@ -29,8 +29,17 @@ export class CalendarTimelineComponent {
   }
 
 
+  private hasLoadedPrayerTimes = false;
+
   constructor(private fetchAPIData: FetchApiDataService) {
-    this.refreshPrayerTimes();
+    this.loadPrayerTimesOnce();
+  }
+
+  loadPrayerTimesOnce() {
+    if (!this.hasLoadedPrayerTimes) {
+      this.refreshPrayerTimes();
+      this.hasLoadedPrayerTimes = true;
+    }
   }
 
   addTask() {

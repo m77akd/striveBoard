@@ -9,13 +9,13 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the theme object.
+// Nutze die vordefinierte grüne Material-Palette für tertiary
 $striveBoard-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
       primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      tertiary: mat.$green-palette,
     ),
     density: (
       scale: 0,

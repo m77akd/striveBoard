@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CalendarTimelineComponent } from '../calendar-timeline/calendar-timeline.component';
+import { UserSettingsComponent } from '../user-settings/user-settings.component';
 
 
 @Component({
   selector: 'app-bottom-tab-bar',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, CommonModule, CalendarTimelineComponent],
+  imports: [MatIconModule, MatButtonModule, CommonModule, CalendarTimelineComponent, UserSettingsComponent],
   templateUrl: './bottom-tab-bar.component.html',
   styleUrl: './bottom-tab-bar.component.scss',
 })

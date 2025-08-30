@@ -1,8 +1,24 @@
-<mat-form-field>
-  <mat-label>Source of Prayertime Data </mat-label>
-  <mat-select [(ngModel)]="selectedCalculationMethod" (selectionChange)="onCalculationMethodChange($event.value)">
-    <mat-option *ngFor="let calculationMethod of fetchAPIData.calculationMethods; trackBy: trackByValue" [value]="calculationMethod.value">
-      {{calculationMethod.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="settings-wrapper">
+  <form class="settings-form">
+    <mat-card class="settings-card">
+      <mat-form-field appearance="fill">
+        <mat-label>Source of Prayertime Data</mat-label>
+        <mat-select [(ngModel)]="selectedCalculationMethod" name="calculationMethod" (selectionChange)="onCalculationMethodChange($event.value)">
+          <mat-option *ngFor="let calculationMethod of fetchAPIData.calculationMethods; trackBy: trackByValue" [value]="calculationMethod.value">
+            {{calculationMethod.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Standard Task Dauer (Minuten)</mat-label>
+        <input matInput type="number" min="1" [(ngModel)]="defaultTaskDuration" name="defaultTaskDuration" (ngModelChange)="onDefaultTaskDurationChange($event)">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Task-Farbe</mat-label>
+        <input matInput type="color" [(ngModel)]="userTaskColor" name="userTaskColor" (ngModelChange)="onUserTaskColorChange($event)">
+      </mat-form-field>
+    </mat-card>
+  </form>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FetchApiDataService } from '../fetch-api-data.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
@@ -14,23 +15,79 @@ import { FormsModule } from '@angular/forms';
 export class CalendarTimelineComponent {
   hoursLeft = Array.from({ length: 12 }, (_, i) => i); // 0-11
   hoursRight = Array.from({ length: 12 }, (_, i) => i + 12); // 12-23
-  prayerTimes: { [key: number]: string } = {
-    5: 'Fajr',
-    12: 'Dhuhr',
-    15: 'Asr',
-    18: 'Maghrib',
-    20: 'Isha',
-  };
+  prayerTimes: { [key: number]: string } = {};
+  isRefreshing = false;
 
   taskInput = '';
-  tasks: string[] = [];
+  tasks: { text: string; color: string; duration: number; hour: number }[] = [];
+
+  get userTaskColor(): string {
+    return localStorage.getItem('userTaskColor') || '#2196f3';
+  }
+  get defaultTaskDuration(): number {
+    return +(localStorage.getItem('defaultTaskDuration') || '60');
+  }
+
+
+  constructor(private fetchAPIData: FetchApiDataService) {
+    this.refreshPrayerTimes();
+  }
 
   addTask() {
     if (this.taskInput.trim()) {
-      this.tasks.push(this.taskInput.trim());
+      // Für Demo: Task immer zur aktuellen Stunde (kann angepasst werden)
+      const now = new Date();
+      const hour = now.getHours();
+      this.tasks.push({
+        text: this.taskInput.trim(),
+        color: this.userTaskColor,
+        duration: this.defaultTaskDuration,
+        hour
+      });
       this.taskInput = '';
     }
   }
+
+  refreshPrayerTimes() {
+    this.isRefreshing = true;
+    this.fetchAPIData.callToAPI().subscribe({
+      next: (data) => {
+        // Mapping: API-Zeiten auf Stunden
+        const mapping: { [key: string]: string } = {
+          Fajr: 'Fajr',
+          Dhuhr: 'Dhuhr',
+          Asr: 'Asr',
+          Maghrib: 'Maghrib',
+          Isha: 'Isha',
+        };
+        const times = data?.data?.times as { [key: string]: string };
+        const result: { [key: number]: string } = {};
+        if (times) {
+          Object.keys(mapping).forEach(key => {
+            const timeStr = times[key];
+            if (timeStr) {
+              const hour = parseInt(timeStr.split(':')[0], 10);
+              if (!isNaN(hour)) {
+                result[hour] = mapping[key];
+              }
+            }
+          });
+        }
+        this.prayerTimes = result;
+        this.isRefreshing = false;
+      },
+      error: () => {
+        this.isRefreshing = false;
+      }
+    });
+  }
+
+
+  getTasksForHour(hour: number) {
+    return this.tasks.filter(t => t.hour === hour);
+  }
+
+  // isRefreshing und refreshPrayerTimes nur einmal vorhanden, siehe oben
 
   getPrayerClass(prayer: string): string {
     switch (prayer) {

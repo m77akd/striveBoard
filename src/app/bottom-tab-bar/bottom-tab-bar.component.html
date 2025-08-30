@@ -16,4 +16,12 @@
   </button>
 </nav>
 
-<app-calendar-timeline *ngIf="selectedIndex === 0"></app-calendar-timeline>
+<div *ngIf="selectedIndex === 0" style="margin-top: 32px;">
+  <app-calendar-timeline></app-calendar-timeline>
+</div>
+<div *ngIf="selectedIndex === 1" style="margin-bottom: 80px;">
+  <!-- Hier kann später Content für Tab 1 eingefügt werden. -->
+</div>
+<div *ngIf="selectedIndex === 2">
+  <app-user-settings></app-user-settings>
+</div>

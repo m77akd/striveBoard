@@ -1,27 +1,25 @@
+<div class="tab-content">
+  <div *ngIf="selectedIndex === 0">
+    <app-calendar-timeline></app-calendar-timeline>
+  </div>
+  <div *ngIf="selectedIndex === 1">
+    <app-prayer-times></app-prayer-times>
+  </div>
+  <div *ngIf="selectedIndex === 2">
+    <app-user-settings></app-user-settings>
+  </div>
+</div>
 <nav class="bottom-tab-bar">
   <button mat-icon-button [class.active]="selectedIndex === 0" (click)="selectTab(0)">
     <mat-icon>home</mat-icon>
-    <span *ngIf="selectedIndex !== 0">Home</span>
-    <span class="tab-indicator" *ngIf="selectedIndex === 0"></span>
+    <span>Home</span>
   </button>
   <button mat-icon-button [class.active]="selectedIndex === 1" (click)="selectTab(1)">
     <mat-icon>schedule</mat-icon>
-    <span *ngIf="selectedIndex !== 1">Times</span>
-    <span class="tab-indicator" *ngIf="selectedIndex === 1"></span>
+    <span>Times</span>
   </button>
   <button mat-icon-button [class.active]="selectedIndex === 2" (click)="selectTab(2)">
     <mat-icon>settings</mat-icon>
-    <span *ngIf="selectedIndex !== 2">Settings</span>
-    <span class="tab-indicator" *ngIf="selectedIndex === 2"></span>
+    <span>Settings</span>
   </button>
 </nav>
-
-<div [style.display]="selectedIndex === 0 ? 'block' : 'none'" style="margin-top: 32px;">
-  <app-calendar-timeline></app-calendar-timeline>
-</div>
-<div [style.display]="selectedIndex === 1 ? 'block' : 'none'" style="margin-bottom: 80px;">
-  <!-- Hier kann später Content für Tab 1 eingefügt werden. -->
-</div>
-<div [style.display]="selectedIndex === 2 ? 'block' : 'none'">
-  <app-user-settings></app-user-settings>
-</div>

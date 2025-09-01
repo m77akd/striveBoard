@@ -1,49 +1,35 @@
 
 
 
+<!-- Hijri Info kompakt oben -->
+<div class="hijri-info-bar" *ngIf="prayerTimeAPI.data">
+  <span>{{prayerTimeAPI.data.date.hijri.day}}. {{prayerTimeAPI.data.date.hijri.month.ar}} {{prayerTimeAPI.data.date.hijri.year}} ({{prayerTimeAPI.data.date.hijri.weekday.ar}})</span>
+</div>
 
-
-<mat-accordion>
-  <!-- Panel 1: 5 tägliche Gebete -->
-  <mat-expansion-panel [expanded]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>5 tägliche Gebete</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="prayer-row">
-      <div class="hijri-cards">
-        <mat-card class="card-times"><mat-card-header><h3>Hijri Day</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.day}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Hijri Weekday (ar)</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.weekday.ar}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Hijri Month (ar)</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.month.ar}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Hijri Year</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.hijri.year}}</p></mat-card-content></mat-card>
+<!-- Gebetszeiten Cards -->
+<div class="prayer-cards-list" *ngIf="prayerTimeAPI.data">
+  <div class="prayer-cards-row">
+    <div class="prayer-card-simple" *ngFor="let prayer of prayers">
+  <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{prayer}}</div>
+  <div class="prayer-time">{{getTime(prayer)}}</div>
       </div>
-      <div class="prayer-cards">
-        <mat-card class="card-times"><mat-card-header><h3>Fajr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Fajr}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Dhuhr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Dhuhr}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Asr</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Asr}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Maghrib</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Maghrib}}</p></mat-card-content></mat-card>
-        <mat-card class="card-times"><mat-card-header><h3>Isha</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Isha}}</p></mat-card-content></mat-card>
+  </div>
+  <div class="prayer-cards-row">
+    <div class="prayer-card-simple" *ngFor="let special of specials">
+  <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{special}}</div>
+  <div class="prayer-time">{{getTime(special)}}</div>
       </div>
-    </div>
-  </mat-expansion-panel>
+  </div>
+</div>
 
-  <!-- Panel 2: Nachtgebete und spezielle Zeiten -->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Nachtgebete & spezielle Zeiten</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="PT-Container">
-      <mat-card class="card-times"><mat-card-header><h3>Imsak</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Imsak}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Sunrise</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunrise}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Sunset</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Sunset}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Midnight</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Midnight}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Firstthird</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Firstthird}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Lastthird</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.times.Lastthird}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Date Timestamp</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.date.timestamp}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Prohibited Sunset Start</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.start}}</p></mat-card-content></mat-card>
-      <mat-card class="card-times"><mat-card-header><h3>Prohibited Sunset End</h3></mat-card-header><mat-card-content class="PT-Item"><p *ngIf="prayerTimeAPI.data">{{prayerTimeAPI.data.prohibited_times.sunset.end}}</p></mat-card-content></mat-card>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
 
-<app-current-time class="line-break"></app-current-time>
 
+
+
+<!-- Status-Info Card direkt über der Bottom-Bar, ganz unten -->
+<mat-card class="status-info-card" *ngIf="fetchAPIData.lastUpdated || fetchAPIData.statusCode">
+  <div class="status-info-content" [ngStyle]="{'color': userAccentColor}">
+    <p *ngIf="fetchAPIData.lastUpdated">Letztes Update: {{ fetchAPIData.lastUpdated | date:'short' }}</p>
+    <p>{{ fetchAPIData.statusCode }} {{ fetchAPIData.statusText }}</p>
+  </div>
+</mat-card>

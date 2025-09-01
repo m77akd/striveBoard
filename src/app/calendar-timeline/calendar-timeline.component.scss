@@ -1,9 +1,9 @@
-
 .calendar-timeline {
   width: 100%;
-  max-width: 420px;
+
+  max-width: 100%;
   margin: 0 auto;
-  padding: 16px 0;
+  padding: 16px 0 16px 16px; // No change needed, keeping for context
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,6 +71,16 @@
   font-weight: 500;
   font-size: 1.05rem;
   color: #fff;
+  /* Automatische Kontrastfarbe */
+  background-color: inherit;
+  /* Fallback: falls dunkle Farbe, dann weiß, sonst schwarz */
+  filter: contrast(2);
+}
+.user-task-card {
+  color: #fff;
+  background-color: inherit;
+  filter: contrast(2);
+.prayer-fajr { background: #2196f3; }
 }
 .prayer-fajr { background: #2196f3; }
 .prayer-dhuhr { background: #4caf50; }
@@ -83,7 +93,7 @@
   align-items: center;
   margin: 32px 0 16px 0;
   width: 100%;
-  max-width: 480px;
+  max-width: 420px;
 }
 .task-input {
   flex: 1;

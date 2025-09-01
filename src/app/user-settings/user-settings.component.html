@@ -1,10 +1,5 @@
 <div class="settings-wrapper">
   <form class="settings-form">
-    <div class="settings-status-box">
-      <p *ngIf="fetchAPIData.lastUpdated">Letztes Update: {{ fetchAPIData.lastUpdated | date:'short' }}</p>
-      <p>{{ fetchAPIData.statusCode }} {{ fetchAPIData.statusText }}</p>
-      <p>{{ fetchAPIData.timestamp }}</p>
-    </div>
     <mat-card class="settings-card">
       <mat-form-field appearance="fill">
         <mat-label>Source of Prayertime Data</mat-label>
@@ -21,8 +16,8 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Task-Farbe</mat-label>
-        <input matInput type="color" [(ngModel)]="userTaskColor" name="userTaskColor" (ngModelChange)="onUserTaskColorChange($event)">
+        <mat-label>Akzentfarbe</mat-label>
+        <input matInput type="color" [(ngModel)]="userAccentColor" name="userAccentColor" (ngModelChange)="onUserAccentColorChange($event)">
       </mat-form-field>
     </mat-card>
   </form>

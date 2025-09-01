@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/strive-board",
+    "public": "dist/strive-board/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

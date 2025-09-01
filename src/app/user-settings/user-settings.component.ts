@@ -6,6 +6,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import { FetchApiDataService } from '../fetch-api-data.service'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 interface Food {
@@ -23,13 +24,13 @@ interface Food {
 export class UserSettingsComponent {
   selectedCalculationMethod = '1';
   defaultTaskDuration = '60';
-  userTaskColor = '#2196f3';
+  userAccentColor = '#222222';
 
   ngOnInit() {
     if (typeof window !== 'undefined' && window.localStorage) {
       this.selectedCalculationMethod = localStorage.getItem('calculationMethod') || '1';
       this.defaultTaskDuration = localStorage.getItem('defaultTaskDuration') || '60';
-      this.userTaskColor = localStorage.getItem('userTaskColor') || '#2196f3';
+      this.userAccentColor = localStorage.getItem('userAccentColor') || '#222222';
     }
   }
 
@@ -37,24 +38,28 @@ export class UserSettingsComponent {
     return item.value;
   }
 
-  constructor(public fetchAPIData: FetchApiDataService) {}
+  constructor(public fetchAPIData: FetchApiDataService, private snackBar: MatSnackBar) {}
 
   onCalculationMethodChange(value: string) {
     this.fetchAPIData.setCalculationMethod(value);
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('calculationMethod', value);
     }
+    this.snackBar.open('Einstellung gespeichert', 'OK', { duration: 1800 });
   }
 
   onDefaultTaskDurationChange(value: string) {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('defaultTaskDuration', value);
     }
+    this.snackBar.open('Einstellung gespeichert', 'OK', { duration: 1800 });
   }
 
-  onUserTaskColorChange(value: string) {
+  onUserAccentColorChange(value: string) {
+    this.userAccentColor = value;
     if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('userTaskColor', value);
+      localStorage.setItem('userAccentColor', value);
     }
+    this.snackBar.open('Einstellung gespeichert', 'OK', { duration: 1800 });
   }
 }

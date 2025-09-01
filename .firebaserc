@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "strive-board-app"
-  }
+    "default": "striveboard",
+    "strive-board": "striveboard"
+  },
+  "targets": {},
+  "etags": {}
 }

@@ -1,8 +1,8 @@
 <div class="calendar-timeline">
-  <div class="refresh-bar" (touchstart)="refreshPrayerTimes()" (mousedown)="$event.buttons === 1 && refreshPrayerTimes()">
-    <button (click)="refreshPrayerTimes()" [disabled]="isRefreshing">🔄 Gebetszeiten aktualisieren</button>
-    <span *ngIf="isRefreshing">Lade...</span>
-  </div>
+<div class="refresh-bar-outer">
+  <button class="refresh-btn-big" (click)="refreshPrayerTimes()" [disabled]="isRefreshing">🔄 <span class="refresh-btn-label">Gebetszeiten aktualisieren</span></button>
+  <span *ngIf="isRefreshing">Lade...</span>
+</div>
   <div class="day-flow">
     <div class="hour-column">
       <div *ngFor="let hour of hoursLeft" class="hour-block">

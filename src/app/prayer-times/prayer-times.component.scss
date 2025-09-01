@@ -1,3 +1,110 @@
+body, .main-content, .tab-content, .prayer-cards-list, .calendar-timeline {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  height: 100vh;
+}
+// Hijri Info Bar zentrieren
+.hijri-info-bar {
+  text-align: center;
+  margin: 0.7em 0 1.2em 0;
+  font-size: 1.08em;
+  font-weight: 500;
+}
+// Status-Info Card Styling
+.status-info-card {
+
+  margin: 3.5em auto 1.2em auto;
+  max-width: 420px;
+  width: 100%;
+  background: #fff;
+  border-radius: 16px 16px 16px 16px;
+  box-shadow: 0 2px 12px 0 rgba(31,38,135,0.10);
+  padding: 0.7em 1.2em;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .status-info-card {
+    margin: 2em auto 1em auto;
+    max-width: 98vw;
+    width: 98vw;
+  }
+}
+
+.status-info-content p {
+  margin: 0.1em 0;
+}
+.font-color-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.7em 0 0.2em 0;
+  font-size: 0.98em;
+}
+// Kompakte Prayer Cards für neue Ansicht
+.prayer-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 1.2rem 0 0.5rem 0;
+}
+.prayer-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.prayer-card-simple {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.06);
+  padding: 0.7em 1.1em;
+  min-width: 80px;
+  max-width: 120px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 1.08rem;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: box-shadow 0.2s;
+}
+.prayer-card-simple:hover {
+  box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10);
+}
+.prayer-title {
+  font-size: 0.98em;
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+}
+.prayer-time {
+  font-size: 1.13em;
+  font-weight: 600;
+  color: #222;
+}
+
+@media (max-width: 600px) {
+  .prayer-cards-row {
+    gap: 6px;
+  }
+  .prayer-card-simple {
+    min-width: 64px;
+    max-width: 90px;
+    font-size: 0.98rem;
+    padding: 0.5em 0.5em;
+  }
+}
 // Hijri-Daten und Gebetszeiten nebeneinander, vertikal ausgerichtet
 .prayer-row {
   display: flex;
@@ -33,6 +140,28 @@
     border-radius: 0 3em 0 3em;
     padding: 0em 0 0 1.5em;
     line-height: 0.7;
+}
+
+@media (max-width: 600px) {
+  .prayer-row {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .hijri-cards, .prayer-cards {
+    min-width: unset;
+    width: 100%;
+  }
+  .card-times {
+    margin: 0.5rem 0;
+    width: 100%;
+    padding: 0.5em 0.5em;
+    line-height: 1.2;
+  }
+  .PT-Item {
+    font-size: 1.1em;
+    word-break: break-word;
+  }
 }
 
 .PT-Container {

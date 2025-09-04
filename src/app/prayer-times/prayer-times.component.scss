@@ -1,18 +1,18 @@
 .flag-row-1 {
-  margin-bottom: 18px;
-  box-shadow: 0 6px 24px 0 rgba(34,34,34,0.18);
-  background-image: repeating-linear-gradient(135deg, #222 0px, #222 8px, #2c2c2c 16px, #222 24px);
+  margin-bottom: 12px;
+  box-shadow: 0 4px 16px rgba(34,34,34,0.13);
+  background: #222;
 }
 .flag-row-2 {
-  margin-bottom: 18px;
-  margin-top: -8px;
-  box-shadow: 0 8px 32px 0 rgba(217,0,18,0.12), 0 -8px 32px 0 rgba(19,136,8,0.12);
-  background-image: repeating-linear-gradient(45deg, #fff 0px, #fff 12px, #f7f7f7 24px, #fff 36px);
+  margin-bottom: 12px;
+  margin-top: -6px;
+  box-shadow: 0 6px 20px rgba(217,0,18,0.09), 0 -6px 20px rgba(19,136,8,0.09);
+  background: #fff;
 }
 .flag-row-3 {
-  margin-top: -8px;
-  box-shadow: 0 -6px 24px 0 rgba(19,136,8,0.18);
-  background-image: repeating-linear-gradient(135deg, #138808 0px, #138808 10px, #1a9a0a 20px, #138808 30px);
+  margin-top: -6px;
+  box-shadow: 0 -4px 16px rgba(19,136,8,0.13);
+  background: #138808;
 }
 .palestine-flag-row {
   position: relative;
@@ -104,9 +104,9 @@ html, body {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  border-radius: 18px;
-  margin-bottom: 0.7em;
-  box-shadow: 0 1px 8px 0 rgba(31,38,135,0.07);
+  border-radius: 16px;
+  margin-bottom: 0.5em;
+  box-shadow: 0 1px 6px 0 rgba(31,38,135,0.06);
 }
 
 .prayer-cards-row:nth-child(1) {
@@ -126,23 +126,37 @@ html, body {
 }
 
 .prayer-card-simple {
-  /* ...existing code... */
-  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.06);
-  transition: box-shadow 0.2s, transform 0.2s;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px 0 rgba(31,38,135,0.05);
+  padding: 0.6em 1em;
+  min-width: 80px;
+  max-width: 120px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: box-shadow 0.2s;
 }
 .prayer-card-simple:hover {
-  box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10);
-  transform: scale(1.04);
+  box-shadow: 0 3px 10px 0 rgba(31,38,135,0.09);
+  transform: scale(1.03);
 }
 .prayer-title {
-  /* ...existing code... */
-  margin-bottom: 0.2em;
-  letter-spacing: 0.04em;
+  font-size: 0.97em;
+  color: #1976d2;
+  font-weight: 700;
+  margin-bottom: 0.15em;
 }
 .prayer-time {
-  /* ...existing code... */
-  font-size: 1.18em;
-  font-weight: 700;
+  font-size: 1.09em;
+  font-weight: 600;
   color: #222;
 }
 .prayer-card-simple {
@@ -256,10 +270,10 @@ html, body {
 }
 .PT-Item {
     order: 2;
-    width: 70px;  /* Or whatever */
+    width: 70px;
     padding-right: 33px;
-  height: 70px; /* Or whatever */
-  margin: auto;  /* Magic! */
+  height: 70px;
+  margin: auto;  
 }
 
 .line-break {

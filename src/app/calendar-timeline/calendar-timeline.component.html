@@ -1,45 +1,73 @@
 <div class="calendar-timeline">
+  
 <div class="refresh-bar-outer">
-  <button class="refresh-btn-big" (click)="refreshPrayerTimes()" [disabled]="isRefreshing">🔄 <span class="refresh-btn-label">Gebetszeiten aktualisieren</span></button>
+  <button mat-raised-button color="primary" (click)="refreshPrayerTimes()" [disabled]="isRefreshing">🔄 <span class="refresh-btn-label">Gebetszeiten aktualisieren</span></button>
   <span *ngIf="isRefreshing">Lade...</span>
 </div>
-  <div class="day-flow">
-    <div class="hour-column">
-      <div *ngFor="let hour of hoursLeft" class="hour-block">
+<div class="day-flow">
+  <div class="hour-column">
+  <div *ngFor="let hour of hoursLeft" class="hour-block" (click)="openTaskOverlay(hour)" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)">
         <div class="hour-label">{{ hour }}:00</div>
         <div class="prayer-task" *ngIf="prayerTimes[hour]">
           <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
         </div>
         <div class="task-slot" *ngIf="!prayerTimes[hour]">
-          <ng-container *ngFor="let task of getTasksForHour(hour)">
-            <mat-card class="user-task-card" [ngStyle]="{'background': task.color}">
-              {{ task.text }}
-              <span class="task-duration">({{ task.duration }} min)</span>
+          <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+            <mat-card class="user-task-card"
+              draggable="true"
+              (dragstart)="onTaskDragStart(task, hour, i)"
+            >
+            {{ getTaskDisplayText(task) }}
             </mat-card>
           </ng-container>
         </div>
       </div>
-    </div>
-    <div class="hour-column">
-      <div *ngFor="let hour of hoursRight" class="hour-block">
-        <div class="hour-label">{{ hour }}:00</div>
-        <div class="prayer-task" *ngIf="prayerTimes[hour]">
-          <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+
+      <!-- Overlay für Task-Eingabe -->
+      <div class="task-overlay" *ngIf="showTaskOverlay">
+        <div class="task-overlay-content">
+          <h3>Task für {{ selectedHour !== null ? (selectedHour + ':00') : '' }} hinzufügen</h3>
+          <input [(ngModel)]="newTaskName" placeholder="Task Name" />
+          <div class="task-overlay-actions">
+            <button mat-raised-button color="primary" (click)="saveTask()">Speichern</button>
+            <button mat-raised-button color="warn" (click)="closeTaskOverlay()">Abbrechen</button>
+          </div>
         </div>
-        <div class="task-slot" *ngIf="!prayerTimes[hour]">
-          <ng-container *ngFor="let task of getTasksForHour(hour)">
-            <mat-card class="user-task-card" [ngStyle]="{'background': task.color}">
-              {{ task.text }}
-              <span class="task-duration">({{ task.duration }} min)</span>
-            </mat-card>
-          </ng-container>
+      </div>
+  </div>
+  <div class="hour-column">
+  <div *ngFor="let hour of hoursRight" class="hour-block" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)">
+      <div class="hour-label">{{ hour }}:00</div>
+      <div class="prayer-task" *ngIf="prayerTimes[hour]">
+        <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+      </div>
+      <div class="task-slot" *ngIf="!prayerTimes[hour]">
+        <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+          <mat-card class="user-task-card"
+            draggable="true"
+            (dragstart)="onTaskDragStart(task, hour, i)"
+          >
+            {{ getTaskDisplayText(task) }}
+          </mat-card>
+        </ng-container>
+      </div>
+      <!-- Overlay für Task-Zeitänderung -->
+      <div class="task-move-overlay" *ngIf="showMoveOverlay">
+        <div class="task-overlay-content">
+          <h3>Task verschieben</h3>
+          <p>Originalzeit: {{ moveFromHour }}<br>Neue Zeit: {{ moveToHour }}</p>
+          <div class="task-overlay-actions">
+            <button mat-raised-button color="primary" (click)="confirmMoveTask()">Speichern</button>
+            <button mat-raised-button color="warn" (click)="cancelMoveTask()">Abbrechen</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <form class="task-form" (ngSubmit)="addTask()">
-    <input class="task-input" type="text" [(ngModel)]="taskInput" name="taskInput" placeholder="Task hinzufügen..." autocomplete="off" />
-    <button class="task-add-btn" type="submit">Add</button>
-  </form>
-  <!-- Task-Liste entfernt, da Aufgaben direkt im Kalender angezeigt werden -->
+</div>
+<form class="task-form" (ngSubmit)="addTask()">
+  <input class="task-input" type="text" [(ngModel)]="taskInput" name="taskInput" placeholder="Task hinzufügen..." autocomplete="off" />
+  <button class="task-add-btn" type="submit">Add</button>
+</form>
+<!-- Task-Liste entfernt, da Aufgaben direkt im Kalender angezeigt werden -->
 </div>

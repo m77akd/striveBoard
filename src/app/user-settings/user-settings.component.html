@@ -1,3 +1,6 @@
+<div class="settings-version-info">
+  <span class="settings-version-text">v{{ appVersion }} &copy; 2025 m77akd</span>
+</div>
 <div class="settings-wrapper">
   <form class="settings-form">
     <mat-card class="settings-card">
@@ -15,10 +18,40 @@
         <input matInput type="number" min="1" [(ngModel)]="defaultTaskDuration" name="defaultTaskDuration" (ngModelChange)="onDefaultTaskDurationChange($event)">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Akzentfarbe</mat-label>
-        <input matInput type="color" [(ngModel)]="userAccentColor" name="userAccentColor" (ngModelChange)="onUserAccentColorChange($event)">
-      </mat-form-field>
+
+    </mat-card>
+  </form>
+
+  <form class="premium-features-form">
+    <mat-card class="settings-card">
+      <h3>Premium-Features</h3>
+      <div class="premium-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Akzentfarbe</mat-label>
+          <input matInput type="color" [(ngModel)]="userAccentColor" name="userAccentColor" (ngModelChange)="onUserAccentColorChange($event)">
+        </mat-form-field>
+      </div>
+      <div class="premium-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Farbe für Gebetsreihe 1 (Fajr–Isha)</mat-label>
+          <input matInput type="color" [(ngModel)]="prayerRowColor1" name="prayerRowColor1" (ngModelChange)="onPrayerRowColorChange(1, $event)">
+        </mat-form-field>
+      </div>
+      <div class="premium-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Farbe für Gebetsreihe 2 (Imsak–Sunset)</mat-label>
+          <input matInput type="color" [(ngModel)]="prayerRowColor2" name="prayerRowColor2" (ngModelChange)="onPrayerRowColorChange(2, $event)">
+        </mat-form-field>
+      </div>
+      <div class="premium-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Farbe für Gebetsreihe 3 (Firstthird–Lastthird)</mat-label>
+          <input matInput type="color" [(ngModel)]="prayerRowColor3" name="prayerRowColor3" (ngModelChange)="onPrayerRowColorChange(3, $event)">
+        </mat-form-field>
+      </div>
+      <div class="premium-row">
+        <button mat-raised-button color="warn" type="button" (click)="resetUserSettings()">Alle Einstellungen zurücksetzen</button>
+      </div>
     </mat-card>
   </form>
 </div>

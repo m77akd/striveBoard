@@ -70,6 +70,11 @@ body, .calendar-timeline {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #181a20 !important;
+  min-height: calc(100vh - 64px); // 64px ist die Tab-Bar-Höhe
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding-bottom: 80px; // Platz für die Tab-Bar
 }
 
 @media (min-width: 900px) {
@@ -97,6 +102,12 @@ body, .calendar-timeline {
     gap: 8px;
     align-items: center;
   }
+  .task-overlay-actions button {
+    font-size: 1.18rem !important;
+    padding: 16px 32px !important;
+    min-width: 120px !important;
+    height: 48px !important;
+  }
 }
 
 @media (min-width: 900px) {
@@ -119,6 +130,7 @@ body, .calendar-timeline {
   min-height: 38px;
   border-bottom: 1px solid rgba(200,200,200,0.18);
   position: relative;
+  cursor: pointer;
 }
 .hour-label {
   width: 48px;
@@ -126,6 +138,7 @@ body, .calendar-timeline {
   color: #888;
   text-align: right;
   margin-right: 12px;
+  cursor: pointer;
 }
 .prayer-card {
   box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
@@ -140,10 +153,23 @@ body, .calendar-timeline {
   filter: contrast(2);
 }
 .user-task-card {
+  background: #23242a;
   color: #fff;
-  background-color: inherit;
-  filter: contrast(2);
-.prayer-fajr { background: #2196f3; }
+  min-height: 48px;
+  min-width: 120px;
+  width: 100%;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+  transition: height 0.2s, background 0.2s, color 0.2s, width 0.2s;
+  display: flex;
+  align-items: center;
+  font-size: 1.08em;
+  position: relative;
+}
+.user-task-card[style*='#2e3b55'] {
+  background: #2e3b55 !important;
+  box-shadow: 0 2px 12px 0 rgba(44,62,80,0.18) !important;
+  color: #fff !important;
 }
 .prayer-fajr { background: #2196f3; }
 .prayer-dhuhr { background: #4caf50; }
@@ -209,4 +235,45 @@ body, .calendar-timeline {
   border-left: 1.5px dashed #b3b3b3;
   margin-left: 8px;
   opacity: 0.5;
+}
+.task-move-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.routine-days-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 8px 0;
+}
+.routine-day-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.routine-day-bubble input[type="radio"] {
+  accent-color: #2196f3;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 4px;
+}
+.routine-day-bubble span {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #eee;
+}
+@media (min-width: 900px) {
+  .hour-label, .task-slot {
+    cursor: pointer;
+  }
 }

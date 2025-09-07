@@ -20,12 +20,25 @@ export class BottomTabBarComponent implements OnInit {
   @Output() tabChange = new EventEmitter<number>();
 
   ngOnInit(): void {
-    this.selectedIndex = this.initialIndex;
+    // Lade zuletzt aktiven Tab aus localStorage (nur im Browser)
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedTab = localStorage.getItem('activeTabIndex');
+      if (savedTab !== null) {
+        this.selectedIndex = +savedTab;
+      } else {
+        this.selectedIndex = this.initialIndex;
+      }
+    } else {
+      this.selectedIndex = this.initialIndex;
+    }
     this.tabChange.emit(this.selectedIndex);
   }
 
   selectTab(index: number): void {
     this.selectedIndex = index;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('activeTabIndex', String(index));
+    }
     this.tabChange.emit(index);
   }
 }

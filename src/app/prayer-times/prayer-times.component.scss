@@ -29,12 +29,6 @@
   z-index: 4;
   pointer-events: none;
 }
-.imsak-red {
-  background: #d90012 !important;
-  color: #fff !important;
-  border: 2.5px solid #d90012 !important;
-  box-shadow: 0 4px 18px 0 rgba(217,0,18,0.18);
-}
 .upcoming-prayer {
   border: 2.5px solid var(--accent-color, #1976d2);
   background: var(--accent-color, #1976d2);
@@ -98,6 +92,10 @@ html, body {
   flex-direction: column;
   gap: 12px;
   margin: 1.2rem 0 0.5rem 0;
+  min-height: calc(100vh - 64px); // 64px ist die Tab-Bar-Höhe
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding-bottom: 72px; // Platz für die Tab-Bar
 }
 .prayer-cards-row {
   display: flex;

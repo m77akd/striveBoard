@@ -25,9 +25,16 @@ export class AppComponent {
   isSubscribedToEmailsMessage = 'gurke';
   title = 'striveBoard';
   isTab0Active = false;
+  initialTabIndex = 1;
 
   constructor(private fetchAPIData: FetchApiDataService) {
     // Kein automatischer API-Call mehr beim Start
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedTab = localStorage.getItem('activeTabIndex');
+      if (savedTab !== null) {
+        this.initialTabIndex = +savedTab;
+      }
+    }
   }
 
   onTabChange(index: number) {

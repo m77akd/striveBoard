@@ -52,9 +52,11 @@ export class UserSettingsComponent {
       this.selectedCalculationMethod = localStorage.getItem('calculationMethod') || '1';
       this.defaultTaskDuration = localStorage.getItem('defaultTaskDuration') || '60';
       this.userAccentColor = localStorage.getItem('userAccentColor') || '#222222';
-  this.prayerRowColor1 = localStorage.getItem('prayerRowColor1') || '#222';
-  this.prayerRowColor2 = localStorage.getItem('prayerRowColor2') || '#fff';
-  this.prayerRowColor3 = localStorage.getItem('prayerRowColor3') || '#138808';
+      this.prayerRowColor1 = localStorage.getItem('prayerRowColor1') || '#222';
+      this.prayerRowColor2 = localStorage.getItem('prayerRowColor2') || '#fff';
+      this.prayerRowColor3 = localStorage.getItem('prayerRowColor3') || '#138808';
+    } else {
+      this.prayerRowColor2 = '#fff';
     }
   }
 
@@ -99,5 +101,13 @@ export class UserSettingsComponent {
       localStorage.setItem('prayerRowColor3', value);
     }
     this.snackBar.open('Reihenfarbe gespeichert', 'OK', { duration: 1800 });
+  }
+
+  onPrayerRowColor2Change(value: string) {
+    this.prayerRowColor2 = value;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('prayerRowColor2', value);
+    }
+    this.snackBar.open('Farbe für Reihe 2 gespeichert', 'OK', { duration: 1800 });
   }
 }

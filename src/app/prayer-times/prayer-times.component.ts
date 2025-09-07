@@ -24,6 +24,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 
 export class PrayerTimesComponent {
+  flagSettingsLoaded = false;
+  flagShouldBeVisible(): boolean {
+    // Zeige Flagge nur, wenn die Settings geladen sind und die Farben passen
+    return this.flagSettingsLoaded && this.getPrayerRowColor(1) === '#222' && this.getPrayerRowColor(2) === '#fff' && this.getPrayerRowColor(3) === '#138808';
+  }
   // Hilfsfunktion: generiert eine dunklere Farbe für Border/Shadow
   getDarkerColor(hex: string, percent: number = 0.7): string {
     if (!hex.startsWith('#') || (hex.length !== 7 && hex.length !== 4)) return '#bbb';
@@ -103,6 +108,7 @@ export class PrayerTimesComponent {
   ngOnInit() {
     if (typeof window !== 'undefined' && window.localStorage) {
       this.userAccentColor = localStorage.getItem('userAccentColor') || '#222222';
+      this.flagSettingsLoaded = true;
       const today = new Date().toISOString().slice(0, 10);
       const cacheKey = `prayerTimes_${today}_${(this.fetchAPIData as any).method}`;
       const cached = localStorage.getItem(cacheKey);

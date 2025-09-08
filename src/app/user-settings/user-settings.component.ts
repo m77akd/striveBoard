@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import { FetchApiDataService } from '../fetch-api-data.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 interface Food {
@@ -16,12 +17,14 @@ interface Food {
 @Component({
   selector: 'app-user-settings',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatCardModule],
+  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatCardModule, MatProgressSpinnerModule],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss'
 })
 
 export class UserSettingsComponent {
+  showSplashScreen = true;
+
   resetUserSettings() {
     this.selectedCalculationMethod = '1';
     this.defaultTaskDuration = '60';
@@ -42,12 +45,17 @@ export class UserSettingsComponent {
   appVersion = '0.0.4-beta';
   selectedCalculationMethod = '1';
   defaultTaskDuration = '60';
-  userAccentColor = '#222222';
+  userAccentColor = '#ff9100'; // Neon-Orange als Default
   prayerRowColor1 = '#222'; // Schwarz (Fajr–Isha)
   prayerRowColor2 = '#fff'; // Weiß (Imsak–Sunset)
   prayerRowColor3 = '#138808'; // Grün (Firstthird–Lastthird)
 
   ngOnInit() {
+    // Splash-Screen für neue Nutzer für 2 Sekunden anzeigen
+    setTimeout(() => {
+      this.showSplashScreen = false;
+    }, 2000);
+
     if (typeof window !== 'undefined' && window.localStorage) {
       this.selectedCalculationMethod = localStorage.getItem('calculationMethod') || '1';
       this.defaultTaskDuration = localStorage.getItem('defaultTaskDuration') || '60';

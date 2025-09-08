@@ -1,5 +1,3 @@
- 
-
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FetchApiDataService } from '../fetch-api-data.service'
@@ -11,13 +9,13 @@ import { FormsModule} from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ChangeDetectorRef } from '@angular/core';
-
-// ...existing code...
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-prayer-times',
   standalone: true,
-  imports: [MatSlideToggleModule, CommonModule, MatCardModule, FormsModule, NgFor, MatExpansionModule, MatSnackBarModule],
+  imports: [MatSlideToggleModule, CommonModule, MatCardModule, FormsModule, NgFor, MatExpansionModule, MatSnackBarModule, MatProgressSpinnerModule, NgStyle],
   templateUrl: './prayer-times.component.html',
   styleUrl: './prayer-times.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -105,7 +103,13 @@ export class PrayerTimesComponent {
     this.prayerTimeAPI = {};
   }
 
+  showSplashScreen = false;
+
   ngOnInit() {
+    // Zeige Splash-Screen nur beim ersten Besuch
+    if (typeof window !== 'undefined' && window.localStorage && !localStorage.getItem('hasVisited')) {
+      this.showSplashScreen = true;
+    }
     if (typeof window !== 'undefined' && window.localStorage) {
       this.userAccentColor = localStorage.getItem('userAccentColor') || '#222222';
       this.flagSettingsLoaded = true;
@@ -132,6 +136,13 @@ export class PrayerTimesComponent {
           }
         });
       }
+    }
+  }
+
+  onContinueSplash() {
+    this.showSplashScreen = false;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('hasVisited', 'true');
     }
   }
 

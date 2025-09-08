@@ -427,4 +427,13 @@ export class CalendarTimelineComponent {
       if (this.lastDeletedTaskTimeout) clearTimeout(this.lastDeletedTaskTimeout);
     }
   }
+
+  ngAfterViewChecked() {
+    if (this.showTaskOverlay && this.createInput) {
+      this.createInput.nativeElement.focus();
+    }
+    if (this.showEditTaskOverlay && this.editInput) {
+      this.editInput.nativeElement.focus();
+    }
+  }
 }

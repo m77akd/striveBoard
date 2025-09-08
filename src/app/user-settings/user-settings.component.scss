@@ -112,3 +112,19 @@
     margin: 0 auto;
   }
 }
+
+// Entferne Splash-Screen für Tab 2
+.tab2-splash-screen, .splash-content, .splash-logo {
+  display: none !important;
+}
+
+// Header/Toolbar Design für App
+.app-header, .mat-toolbar, .main-toolbar {
+  background: #8e24aa !important;
+  color: #fff !important;
+  font-family: 'Inter','Roboto',Arial,sans-serif;
+  font-weight: 700;
+  font-size: 1.18em;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 12px 0 rgba(142,36,170,0.08);
+}

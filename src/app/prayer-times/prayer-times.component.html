@@ -1,90 +1,91 @@
-
-
-
-<!-- Hijri Info kompakt oben -->
-<div class="hijri-info-bar" *ngIf="prayerTimeAPI.data">
-  <span>
-    <ng-container *ngIf="prayerTimeAPI.data; else hijriPlaceholder">
-      {{prayerTimeAPI.data.date.hijri.day}}. {{prayerTimeAPI.data.date.hijri.month.ar}} {{prayerTimeAPI.data.date.hijri.year}} ({{prayerTimeAPI.data.date.hijri.weekday.ar}})
-    </ng-container>
-    <ng-template #hijriPlaceholder>
-      <span class="placeholder">11. رَبِيع ٱلْأَوَّل 1447 (الأربعاء)</span>
-    </ng-template>
-  </span>
+<!-- Splash Screen für Tab 1 -->
+<div *ngIf="showSplashScreen" class="tab1-splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo" style="background:#fff;border-radius:50%;width:80px;height:80px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px auto;">
+      <span style="font-family:'Inter','Roboto',Arial,sans-serif;font-size:3.2rem;font-style:italic;font-weight:700;color:#8e24aa;">sB</span>
+    </div>
+    <h2 style="margin-bottom:12px;">Re-align your routines according to prayer <br><span style="color:#8e24aa;font-size:1.1em;">MashAllah Tabrak Allah</span></h2>
+    <p style="font-size:1.08em;color:#444;margin-bottom:18px;">For the Ummah, by the Ummah. Freelancer spirit for your daily worship and productivity.</p>
+    <button mat-raised-button color="primary" style="margin-top:24px;font-size:1.1em;background:#8e24aa;color:#fff;" (click)="onContinueSplash()">Continue</button>
+  </div>
 </div>
 
-<!-- Gebetszeiten Cards -->
-
-<div class="prayer-cards-list" [ngStyle]="{'--accent-color': userAccentColor}">
-  <ng-container *ngIf="flagSettingsLoaded">
-    <!-- Reihe 1: Fajr, Dhuhr, Asr, Maghrib, Isha -->
-    <div class="prayer-cards-row" 
-      [ngClass]="{'flag-row-1': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
-      [ngStyle]="{'background': getPrayerRowColor(1), 'border': getPrayerRowBorder(1), 'box-shadow': getPrayerRowShadow(1)}">
-      <div class="prayer-card-simple" *ngFor="let prayer of ['Fajr','Dhuhr','Asr','Maghrib','Isha']" [ngClass]="{'upcoming-prayer': prayer === getUpcomingPrayer()}">
-        <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{prayer}}</div>
-        <div class="prayer-time">
-          <ng-container *ngIf="getTime(prayer); else prayerPlaceholder">
-            {{getTime(prayer)}}
-          </ng-container>
-          <ng-template #prayerPlaceholder>
-            <span class="placeholder">00:00</span>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <!-- Reihe 2: Imsak, Sunrise, Sunset -->
-    <div class="prayer-cards-row palestine-flag-row"
-      [ngClass]="{'flag-row-2': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
-      [ngStyle]="{'background': getPrayerRowColor(2), 'border': getPrayerRowBorder(2), 'box-shadow': getPrayerRowShadow(2)}">
-      <ng-container *ngIf="flagShouldBeVisible()">
-        <svg class="palestine-flag-svg" width="54" height="180" viewBox="0 0 54 180" style="position:absolute;left:-8px;top:50%;transform:translateY(-50%);z-index:4;">
-          <polygon points="0,0 54,90 0,180" fill="#d90012" />
-        </svg>
+<div *ngIf="!showSplashScreen">
+  <!-- Hijri Info kompakt oben -->
+  <div class="hijri-info-bar" *ngIf="prayerTimeAPI.data">
+    <span>
+      <ng-container *ngIf="prayerTimeAPI.data; else hijriPlaceholder">
+        {{prayerTimeAPI.data.date.hijri.day}}. {{prayerTimeAPI.data.date.hijri.month.ar}} {{prayerTimeAPI.data.date.hijri.year}} ({{prayerTimeAPI.data.date.hijri.weekday.ar}})
       </ng-container>
-      <div class="prayer-card-simple" *ngFor="let special of ['Imsak','Sunrise','Sunset']">
-        <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{special}}</div>
+      <ng-template #hijriPlaceholder>
+        <span class="placeholder">11. رَبِيع ٱلْأَوَّل 1447 (الأربعاء)</span>
+      </ng-template>
+    </span>
+  </div>
+
+  <!-- Gebetszeiten Cards -->
+  <div class="prayer-cards-list" [ngStyle]="{'--accent-color': userAccentColor}">
+    <ng-container *ngIf="flagSettingsLoaded">
+      <!-- Reihe 1: Fajr, Dhuhr, Asr, Maghrib, Isha -->
+      <div class="prayer-cards-row" 
+        [ngClass]="{'flag-row-1': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
+        [ngStyle]="{'background': getPrayerRowColor(1), 'border': getPrayerRowBorder(1), 'box-shadow': getPrayerRowShadow(1)}">
+        <div class="prayer-card-simple" *ngFor="let prayer of ['Fajr','Dhuhr','Asr','Maghrib','Isha']" [ngClass]="{'upcoming-prayer': prayer === getUpcomingPrayer()}">
+          <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{prayer}}</div>
+          <div class="prayer-time">
+            <ng-container *ngIf="getTime(prayer); else prayerPlaceholder">
+              {{getTime(prayer)}}
+            </ng-container>
+            <ng-template #prayerPlaceholder>
+              <span class="placeholder">00:00</span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <!-- Reihe 2: Imsak, Sunrise, Sunset -->
+      <div class="prayer-cards-row palestine-flag-row"
+        [ngClass]="{'flag-row-2': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
+        [ngStyle]="{'background': getPrayerRowColor(2), 'border': getPrayerRowBorder(2), 'box-shadow': getPrayerRowShadow(2)}">
+        <ng-container *ngIf="flagShouldBeVisible()">
+          <svg class="palestine-flag-svg" width="54" height="180" viewBox="0 0 54 180" style="position:absolute;left:-8px;top:50%;transform:translateY(-50%);z-index:4;">
+            <polygon points="0,0 54,90 0,180" fill="#d90012" />
+          </svg>
+        </ng-container>
+        <div class="prayer-card-simple" *ngFor="let special of ['Imsak','Sunrise','Sunset']">
+          <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{special}}</div>
+          <div class="prayer-time">
+            <ng-container *ngIf="getTime(special); else specialPlaceholder">
+              {{getTime(special)}}
+            </ng-container>
+            <ng-template #specialPlaceholder>
+              <span class="placeholder">00:00</span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <!-- Reihe 3: Firstthird, Midnight, Lastthird -->
+      <div class="prayer-cards-row" 
+        [ngClass]="{'flag-row-3': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
+        [ngStyle]="{'background': getPrayerRowColor(3), 'border': getPrayerRowBorder(3), 'box-shadow': getPrayerRowShadow(3)}">
+        <div class="prayer-card-simple" *ngFor="let extra of ['Firstthird','Midnight','Lastthird']">
+        <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{extra}}</div>
         <div class="prayer-time">
-          <ng-container *ngIf="getTime(special); else specialPlaceholder">
-            {{getTime(special)}}
+          <ng-container *ngIf="getTime(extra); else extraPlaceholder">
+            {{getTime(extra)}}
           </ng-container>
-          <ng-template #specialPlaceholder>
+          <ng-template #extraPlaceholder>
             <span class="placeholder">00:00</span>
           </ng-template>
         </div>
       </div>
     </div>
-    <!-- Reihe 3: Firstthird, Midnight, Lastthird -->
-    <div class="prayer-cards-row" 
-      [ngClass]="{'flag-row-3': getPrayerRowColor(1) === '#222' && getPrayerRowColor(2) === '#fff' && getPrayerRowColor(3) === '#138808'}"
-      [ngStyle]="{'background': getPrayerRowColor(3), 'border': getPrayerRowBorder(3), 'box-shadow': getPrayerRowShadow(3)}">
-      <div class="prayer-card-simple" *ngFor="let extra of ['Firstthird','Midnight','Lastthird']">
-      <div class="prayer-title" [ngStyle]="{'color': userAccentColor}">{{extra}}</div>
-      <div class="prayer-time">
-        <ng-container *ngIf="getTime(extra); else extraPlaceholder">
-          {{getTime(extra)}}
-        </ng-container>
-        <ng-template #extraPlaceholder>
-          <span class="placeholder">00:00</span>
-        </ng-template>
-      </div>
+    
+  <!-- Status-Info Card direkt über der Bottom-Bar, ganz unten -->
+  <mat-card class="status-info-card">
+    <div class="status-info-content" [ngStyle]="{'color': userAccentColor}">
+      <p *ngIf="lastUpdated; else updatePlaceholder">Letztes Update: {{ lastUpdated | date:'short' }}</p>
+      <ng-template #updatePlaceholder>
+        <span class="placeholder">Update-Info folgt ...</span>
+      </ng-template>
     </div>
-  </div>
-
-
-
-
-
-<!-- Status-Info Card direkt über der Bottom-Bar, ganz unten -->
-<mat-card class="status-info-card" *ngIf="fetchAPIData.lastUpdated || fetchAPIData.statusCode">
-  <div class="status-info-content" [ngStyle]="{'color': userAccentColor}">
-    <p *ngIf="fetchAPIData.lastUpdated; else updatePlaceholder">Letztes Update: {{ fetchAPIData.lastUpdated | date:'short' }}</p>
-    <ng-template #updatePlaceholder>
-      <span class="placeholder">Update-Info folgt ...</span>
-    </ng-template>
-    <p *ngIf="fetchAPIData.statusCode; else statusPlaceholder">{{ fetchAPIData.statusCode }} {{ fetchAPIData.statusText }}</p>
-    <ng-template #statusPlaceholder>
-      <span class="placeholder">Status folgt ...</span>
-    </ng-template>
-  </div>
-</mat-card>
+  </mat-card>

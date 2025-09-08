@@ -123,11 +123,13 @@ html, body {
   border: 2px solid #ce93d8;
 }
 
+
+// Optimiert: nur ein Block für .prayer-card-simple, .prayer-title, .prayer-time
 .prayer-card-simple {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 6px 0 rgba(31,38,135,0.05);
-  padding: 0.6em 1em;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.07);
+  padding: 0.65em 1em;
   min-width: 80px;
   max-width: 120px;
   text-align: center;
@@ -136,41 +138,7 @@ html, body {
   align-items: center;
   justify-content: center;
   font-family: 'Inter', 'Roboto', Arial, sans-serif;
-  font-size: 1.05rem;
-  color: #222;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  transition: box-shadow 0.2s;
-}
-.prayer-card-simple:hover {
-  box-shadow: 0 3px 10px 0 rgba(31,38,135,0.09);
-  transform: scale(1.03);
-}
-.prayer-title {
-  font-size: 0.97em;
-  color: #1976d2;
-  font-weight: 700;
-  margin-bottom: 0.15em;
-}
-.prayer-time {
-  font-size: 1.09em;
-  font-weight: 600;
-  color: #222;
-}
-.prayer-card-simple {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px 0 rgba(31,38,135,0.06);
-  padding: 0.7em 1.1em;
-  min-width: 80px;
-  max-width: 120px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.06rem;
   color: #222;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -178,15 +146,16 @@ html, body {
 }
 .prayer-card-simple:hover {
   box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10);
+  transform: scale(1.03);
 }
 .prayer-title {
   font-size: 0.98em;
   color: #1976d2;
   font-weight: 700;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.18em;
 }
 .prayer-time {
-  font-size: 1.13em;
+  font-size: 1.12em;
   font-weight: 600;
   color: #222;
 }
@@ -276,4 +245,39 @@ html, body {
 
 .line-break {
   width: 100%;
+}
+.tab1-splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ece6f7;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splash-content {
+  text-align: center;
+  padding: 32px 24px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 24px 0 rgba(31,38,135,0.12);
+}
+.splash-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 18px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #8e24aa !important;
+}
+body, .main-content, .tab-content {
+  background: #ece6f7 !important;
 }

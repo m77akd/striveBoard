@@ -1,5 +1,5 @@
 <div class="calendar-timeline">
-  <div class="routine-days-bar" style="background:#23242a;padding:12px 0 8px 0;border-radius:16px;box-shadow:0 2px 8px 0 rgba(0,0,0,0.18);margin-bottom:24px;">
+  <div class="routine-days-bar">
     <label *ngFor="let day of ['MO','DI','MI','DO','FR','SA','SO']; let i = index" class="routine-day-bubble">
       <input type="radio" name="routineDay" [value]="day" [(ngModel)]="selectedRoutineDay" />
       <span>{{ day }}</span>
@@ -9,138 +9,133 @@
 <div class="refresh-bar-outer">
   <button mat-raised-button color="primary" (click)="refreshPrayerTimes()" [disabled]="isRefreshing">🔄 <span class="refresh-btn-label">Gebetszeiten aktualisieren</span></button>
   <span *ngIf="isRefreshing">Lade...</span>
-<div class="day-flow">
-  <div class="hour-column">
-    <div *ngFor="let hour of hoursLeft" class="hour-block" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)" style="cursor:pointer;">
-      <div class="hour-label" (click)="openTaskOverlay(hour)">{{ hour }}:00</div>
-      <div class="prayer-task" *ngIf="prayerTimes[hour]">
-        <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
-        <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
-          <mat-card class="user-task-card"
-            [ngStyle]="{
-              'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
-              'color': '#fff',
-              'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
-              'min-height': '48px',
-              'margin-bottom': '4px',
-              'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
-            }"
-            draggable="true"
-            (dragstart)="onTaskDragStart(task, hour, i)"
-            (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
-            style="margin-left:8px;display:inline-block;vertical-align:middle;"
-          >
-            {{ getTaskDisplayText(task) }}
-            <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
-              {{ task.duration }} min
-              <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
-            </span>
-          </mat-card>
-        </ng-container>
+  <div class="day-flow">
+    <div class="hour-column">
+      <div *ngFor="let hour of hoursLeft" class="hour-block" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)" style="cursor:pointer;">
+        <div class="hour-label" (click)="openTaskOverlay(hour)">{{ hour }}:00</div>
+        <div class="prayer-task" *ngIf="prayerTimes[hour]">
+          <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+          <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+            <mat-card class="user-task-card"
+              [ngStyle]="{
+                'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
+                'color': '#fff',
+                'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
+                'min-height': '48px',
+                'margin-bottom': '4px',
+                'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
+              }"
+              draggable="true"
+              (dragstart)="onTaskDragStart(task, hour, i)"
+              (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
+              style="margin-left:8px;display:inline-block;vertical-align:middle;"
+            >
+              {{ getTaskDisplayText(task) }}
+              <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
+                {{ task.duration }} min
+                <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
+              </span>
+            </mat-card>
+          </ng-container>
+        </div>
+        <div class="task-slot" *ngIf="!prayerTimes[hour]" (click)="openTaskOverlay(hour)">
+          <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+            <mat-card class="user-task-card"
+              [ngStyle]="{
+                'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
+                'color': '#fff',
+                'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
+                'min-height': '48px',
+                'margin-bottom': '4px',
+                'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
+              }"
+              draggable="true"
+              (dragstart)="onTaskDragStart(task, hour, i)"
+              (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
+            >
+              {{ getTaskDisplayText(task) }}
+              <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
+                {{ task.duration }} min
+                <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
+              </span>
+            </mat-card>
+          </ng-container>
+        </div>
       </div>
-      <div class="task-slot" *ngIf="!prayerTimes[hour]" (click)="openTaskOverlay(hour)">
-        <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
-          <mat-card class="user-task-card"
-            [ngStyle]="{
-              'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
-              'color': '#fff',
-              'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
-              'min-height': '48px',
-              'margin-bottom': '4px',
-              'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
-            }"
-            draggable="true"
-            (dragstart)="onTaskDragStart(task, hour, i)"
-            (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
-          >
-            {{ getTaskDisplayText(task) }}
-            <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
-              {{ task.duration }} min
-              <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
-            </span>
-          </mat-card>
-        </ng-container>
+    </div>
+    <div class="hour-column">
+      <div *ngFor="let hour of hoursRight" class="hour-block" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)" style="cursor:pointer;">
+        <div class="hour-label" (click)="openTaskOverlay(hour)">{{ hour }}:00</div>
+        <div class="prayer-task" *ngIf="prayerTimes[hour]">
+          <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
+          <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+            <mat-card class="user-task-card"
+              [ngStyle]="{
+                'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
+                'color': '#fff',
+                'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
+                'min-height': '48px',
+                'margin-bottom': '4px',
+                'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)',
+                'width': '100%'
+              }"
+              draggable="true"
+              (dragstart)="onTaskDragStart(task, hour, i)"
+              (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
+              style="margin-left:8px;display:inline-block;vertical-align:middle;"
+            >
+              {{ getTaskDisplayText(task) }}
+              <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
+                {{ task.duration }} min
+                <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
+              </span>
+            </mat-card>
+          </ng-container>
+        </div>
+        <div class="task-slot" *ngIf="!prayerTimes[hour]" (click)="openTaskOverlay(hour)">
+          <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
+            <mat-card class="user-task-card"
+              [ngStyle]="{
+                'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
+                'color': '#fff',
+                'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
+                'min-height': '48px',
+                'margin-bottom': '4px',
+                'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
+              }"
+              draggable="true"
+              (dragstart)="onTaskDragStart(task, hour, i)"
+              (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
+            >
+              {{ getTaskDisplayText(task) }}
+              <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
+                {{ task.duration }} min
+                <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
+              </span>
+            </mat-card>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>
-  <div class="hour-column">
-    <div *ngFor="let hour of hoursRight" class="hour-block" (dragover)="$event.preventDefault()" (drop)="onHourDrop(hour)" style="cursor:pointer;">
-      <div class="hour-label" (click)="openTaskOverlay(hour)">{{ hour }}:00</div>
-      <div class="prayer-task" *ngIf="prayerTimes[hour]">
-        <mat-card class="prayer-card" [ngClass]="getPrayerClass(prayerTimes[hour])">{{ prayerTimes[hour] }}</mat-card>
-        <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
-          <mat-card class="user-task-card"
-            [ngStyle]="{
-              'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
-              'color': '#fff',
-              'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
-              'min-height': '48px',
-              'margin-bottom': '4px',
-              'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)',
-              'width': '100%'
-            }"
-            draggable="true"
-            (dragstart)="onTaskDragStart(task, hour, i)"
-            (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
-            style="margin-left:8px;display:inline-block;vertical-align:middle;"
-          >
-            {{ getTaskDisplayText(task) }}
-            <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
-              {{ task.duration }} min
-              <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
-            </span>
-          </mat-card>
-        </ng-container>
-      </div>
-      <div class="task-slot" *ngIf="!prayerTimes[hour]" (click)="openTaskOverlay(hour)">
-        <ng-container *ngFor="let task of getTasksForHour(hour); let i = index">
-          <mat-card class="user-task-card"
-            [ngStyle]="{
-              'background': task.text === 'sleep' ? '#2e3b55' : '#23242a',
-              'color': '#fff',
-              'height': (task.duration ? (task.duration/60*48) : 48) + 'px',
-              'min-height': '48px',
-              'margin-bottom': '4px',
-              'box-shadow': task.text === 'sleep' ? '0 2px 12px 0 rgba(44,62,80,0.18)' : '0 2px 8px 0 rgba(0,0,0,0.12)'
-            }"
-            draggable="true"
-            (dragstart)="onTaskDragStart(task, hour, i)"
-            (click)="$event.stopPropagation(); openEditTaskOverlay(task, hour, i)"
-          >
-            {{ getTaskDisplayText(task) }}
-            <span *ngIf="task.duration && task.duration > 60" style="font-size:0.9em;opacity:0.7;float:right;">
-              {{ task.duration }} min
-              <span style="margin-left:8px;">→ {{ getTaskEndTime(task.hour, task.minute, task.duration) }}</span>
-            </span>
-          </mat-card>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Overlay für Task-Eingabe und Task-Bearbeitung -->
-<div class="task-overlay" *ngIf="showTaskOverlay || showEditTaskOverlay" (keydown)="handleOverlayKeydown($event)" tabindex="0">
-  <div class="task-overlay-content">
-    <h3>{{ showEditTaskOverlay ? 'Task bearbeiten' : (selectedHour !== null ? (selectedHour + ':00') : '') + ' hinzufügen' }}</h3>
-    <input *ngIf="!showEditTaskOverlay" [(ngModel)]="newTaskName" placeholder="Task Name" #createInput />
-    <input *ngIf="showEditTaskOverlay" [(ngModel)]="editTaskName" placeholder="Task Name" #editInput />
-    <label style="display:block;margin:12px 0 8px 0;font-size:0.98em;">
-      Dauer (Minuten):
-      <input *ngIf="!showEditTaskOverlay" type="number" [(ngModel)]="newTaskDuration" min="5" max="240" step="5" style="width:80px;margin-left:8px;" />
-      <input *ngIf="showEditTaskOverlay" type="number" [(ngModel)]="editTaskDuration" min="5" max="240" step="5" style="width:80px;margin-left:8px;" />
-    </label>
-    <div class="task-overlay-actions">
-      <button mat-raised-button color="primary" *ngIf="!showEditTaskOverlay" (click)="saveTask()" class="mat-btn">Speichern</button>
-      <button mat-raised-button color="primary" *ngIf="showEditTaskOverlay" (click)="saveEditedTask()" class="mat-btn">Speichern</button>
-      <button mat-raised-button color="warn" *ngIf="showEditTaskOverlay" (click)="deleteTask()" class="mat-btn">Löschen</button>
-      <button mat-raised-button color="default" (click)="showEditTaskOverlay ? closeEditTaskOverlay() : closeTaskOverlay()" class="mat-btn">Abbrechen</button>
+  <!-- Overlay für Task-Eingabe und Task-Bearbeitung -->
+  <div class="task-overlay" *ngIf="showTaskOverlay || showEditTaskOverlay" (keydown)="handleOverlayKeydown($event)" tabindex="0">
+    <div class="task-overlay-content">
+      <h3>{{ showEditTaskOverlay ? 'Task bearbeiten' : (selectedHour !== null ? (selectedHour + ':00') : '') + ' hinzufügen' }}</h3>
+      <input *ngIf="!showEditTaskOverlay" [(ngModel)]="newTaskName" placeholder="Task Name" #createInput autofocus />
+      <input *ngIf="showEditTaskOverlay" [(ngModel)]="editTaskName" placeholder="Task Name" #editInput autofocus />
+      <label style="display:block;margin:12px 0 8px 0;font-size:0.98em;">
+        Dauer (Minuten):
+        <input *ngIf="!showEditTaskOverlay" type="number" [(ngModel)]="newTaskDuration" min="5" max="240" step="5" style="width:80px;margin-left:8px;" />
+        <input *ngIf="showEditTaskOverlay" type="number" [(ngModel)]="editTaskDuration" min="5" max="240" step="5" style="width:80px;margin-left:8px;" />
+      </label>
+      <div class="task-overlay-actions">
+        <button mat-raised-button color="primary" *ngIf="!showEditTaskOverlay" (click)="saveTask()" class="mat-btn">Speichern</button>
+        <button mat-raised-button color="primary" *ngIf="showEditTaskOverlay" (click)="saveEditedTask()" class="mat-btn">Speichern</button>
+        <button mat-raised-button color="warn" *ngIf="showEditTaskOverlay" (click)="deleteTask()" class="mat-btn">Löschen</button>
+        <button mat-raised-button color="default" (click)="showEditTaskOverlay ? closeEditTaskOverlay() : closeTaskOverlay()" class="mat-btn">Abbrechen</button>
+      </div>
     </div>
   </div>
-</div>
-
-<form class="task-form" (ngSubmit)="addTask()">
-  <input class="task-input" type="text" [(ngModel)]="taskInput" name="taskInput" placeholder="Task hinzufügen..." autocomplete="off" />
-  <button class="task-add-btn" type="submit">Add</button>
-</form>
 </div>

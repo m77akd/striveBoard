@@ -55,3 +55,15 @@
     </mat-card>
   </form>
 </div>
+<div *ngIf="showSplashScreen" class="tab2-splash-screen">
+  <div class="splash-content">
+    <img src="assets/logo.svg" alt="Logo" class="splash-logo" />
+    <h2>Willkommen bei StriveBoard!</h2>
+    <p>Deine persönliche Task- und Gebetszeiten-App</p>
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+</div>
+<div *ngIf="!showSplashScreen">
+  <!-- ...bestehender Tab 2 Content... -->
+  <ng-content></ng-content>
+</div>
